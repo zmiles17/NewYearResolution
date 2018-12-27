@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faBookOpen, faUtensils, faBicycle, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +14,7 @@ const Calendar = props => (
         <h1>
             <FontAwesomeIcon icon="chevron-left" />
             {props.currentMonth}
-            <FontAwesomeIcon icon="chevron-right" />
+            <FontAwesomeIcon icon="chevron-right" onClick={props.nextMonth} />
         </h1>
         <div className='Month-Container'>
             <div className='Day-Container'>
@@ -26,17 +25,25 @@ const Calendar = props => (
 )
 
 let date = new Date();
-let dateWrapper = moment(date).format('MMMM')
+const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let counter = 0;
 class App extends React.Component {
     state = {
-        currentMonth: dateWrapper,
+        currentMonth: month[date.getMonth()],
     }
-    
+    nextMonth = () => {
+        counter++
+        if (date.getMonth() === 11 || counter === 12) {
+            counter = 0;
+            date.setMonth(counter)
+        }
+        this.setState({ currentMonth: month[counter] })
+    }
     render() {
         return (
             <div className='App'>
                 <main>
-                    <Calendar currentMonth={this.state.currentMonth} />
+                    <Calendar currentMonth={this.state.currentMonth} nextMonth={this.nextMonth} />
                 </main>
                 <aside>
                     {/* <Statistic /> */}
