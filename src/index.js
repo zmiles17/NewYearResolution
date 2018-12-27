@@ -12,7 +12,7 @@ const Calendar = props => (
     <React.Fragment>
 
         <h1>
-            <FontAwesomeIcon icon="chevron-left" />
+            <FontAwesomeIcon icon="chevron-left" onClick={props.previousMonth} />
             {props.currentMonth}
             <FontAwesomeIcon icon="chevron-right" onClick={props.nextMonth} />
         </h1>
@@ -32,9 +32,17 @@ class App extends React.Component {
         currentMonth: month[date.getMonth()],
     }
     nextMonth = () => {
-        counter++
-        if (date.getMonth() === 11 || counter === 12) {
+        counter++;
+        if (date.getMonth() === 11 || counter > 11) {
             counter = 0;
+            date.setMonth(counter)
+        }
+        this.setState({ currentMonth: month[counter] })
+    }
+    previousMonth = () => {
+        counter--;
+        if (counter < 0) {
+            counter = 11;
             date.setMonth(counter)
         }
         this.setState({ currentMonth: month[counter] })
@@ -43,7 +51,7 @@ class App extends React.Component {
         return (
             <div className='App'>
                 <main>
-                    <Calendar currentMonth={this.state.currentMonth} nextMonth={this.nextMonth} />
+                    <Calendar currentMonth={this.state.currentMonth} nextMonth={this.nextMonth} previousMonth={this.previousMonth} />
                 </main>
                 <aside>
                     {/* <Statistic /> */}
