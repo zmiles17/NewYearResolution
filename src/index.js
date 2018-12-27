@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faBookOpen, faUtensils, faBicycle, faUsers } from '@fortawesome/free-solid-svg-icons';
 import './reset.css';
 import './index.css';
-
 
 library.add(faChevronLeft, faChevronRight, faBookOpen, faUtensils, faBicycle, faUsers)
 
@@ -25,9 +25,11 @@ const Calendar = props => (
     </React.Fragment>
 )
 
+let date = new Date();
+let dateWrapper = moment(date).format('MMMM')
 class App extends React.Component {
     state = {
-        currentMonth: 'December',
+        currentMonth: dateWrapper,
     }
     
     render() {
