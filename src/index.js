@@ -10,30 +10,50 @@ library.add(faChevronLeft, faChevronRight, faBookOpen, faUtensils, faBicycle, fa
 
 const Calendar = props => (
     <React.Fragment>
-
         <h1>
-            <FontAwesomeIcon icon="chevron-left" onClick={props.previousMonth} />
+            <FontAwesomeIcon
+                icon="chevron-left"
+                onClick={props.previousMonth}
+            />
             {props.currentMonth}
-            <FontAwesomeIcon icon="chevron-right" onClick={props.nextMonth} />
+            <FontAwesomeIcon
+                icon="chevron-right"
+                onClick={props.nextMonth}
+            />
         </h1>
         <div className='Month-Container'>
-            <div className='Day-Container'>
-
-            </div>
+            {props.days
+                .map((e, i) =>
+                    <Resolution
+                        key={i}
+                    />)}
         </div>
     </React.Fragment>
 )
 
+const Resolution = props =>
+    (
+        <div className='Day-Container'>
+            <FontAwesomeIcon icon='book-open' />
+            <FontAwesomeIcon icon='utensils' />
+            <FontAwesomeIcon icon='bicycle' />
+            <FontAwesomeIcon icon='users' />
+        </div>
+    )
+
+
+
 let date = new Date();
 const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let counter = 0;
+let counter = date.getMonth();
 class App extends React.Component {
     state = {
         currentMonth: month[date.getMonth()],
+        days: Array(31).fill(null)
     }
     nextMonth = () => {
         counter++;
-        if (date.getMonth() === 11 || counter > 11) {
+        if (counter > 11) {
             counter = 0;
             date.setMonth(counter)
         }
@@ -47,11 +67,20 @@ class App extends React.Component {
         }
         this.setState({ currentMonth: month[counter] })
     }
+    completeResolution = () => {
+        console.log('hi')
+    }
     render() {
         return (
             <div className='App'>
                 <main>
-                    <Calendar currentMonth={this.state.currentMonth} nextMonth={this.nextMonth} previousMonth={this.previousMonth} />
+                    <Calendar
+                        currentMonth={this.state.currentMonth}
+                        nextMonth={this.nextMonth}
+                        previousMonth={this.previousMonth}
+                        days={this.state.days}
+                        completeResolution={this.completeResolution}
+                    />
                 </main>
                 <aside>
                     {/* <Statistic /> */}
