@@ -11,22 +11,12 @@ library.add(faChevronLeft, faChevronRight, faBookOpen, faUtensils, faBicycle, fa
 const Calendar = props => (
     <React.Fragment>
         <h1>
-            <FontAwesomeIcon
-                icon="chevron-left"
-                onClick={props.previousMonth}
-            />
+            <FontAwesomeIcon icon="chevron-left" onClick={props.previousMonth} />
             {props.currentMonth}
-            <FontAwesomeIcon
-                icon="chevron-right"
-                onClick={props.nextMonth}
-            />
+            <FontAwesomeIcon icon="chevron-right" onClick={props.nextMonth} />
         </h1>
         <div className='Month-Container'>
-            {props.days
-                .map((e, i) =>
-                    <Resolution
-                        key={i}
-                    />)}
+            {props.days.map((e, i) => <Resolution key={i} id={i} completeResolution={props.completeResolution} />)}
         </div>
     </React.Fragment>
 )
@@ -34,10 +24,10 @@ const Calendar = props => (
 const Resolution = props =>
     (
         <div className='Day-Container'>
-            <FontAwesomeIcon icon='book-open' />
-            <FontAwesomeIcon icon='utensils' />
-            <FontAwesomeIcon icon='bicycle' />
-            <FontAwesomeIcon icon='users' />
+            <FontAwesomeIcon icon='book-open' onClick={props.completeResolution} id='book-open' />
+            <FontAwesomeIcon icon='utensils' onClick={props.completeResolution} id='utensils' />
+            <FontAwesomeIcon icon='bicycle' onClick={props.completeResolution} id='bicycle' />
+            <FontAwesomeIcon icon='users' onClick={props.completeResolution} id='users' />
         </div>
     )
 
@@ -67,8 +57,9 @@ class App extends React.Component {
         }
         this.setState({ currentMonth: month[counter] })
     }
-    completeResolution = () => {
-        console.log('hi')
+    completeResolution = (e) => {
+        if(e.target.style.color === 'blue') e.target.style.color = '';
+        else e.target.style.color = 'blue';
     }
     render() {
         return (

@@ -14,8 +14,8 @@ code {
 }
 
 .Month-Container {
-  height: 250px;
-  width: 350px;
+  height: auto;
+  width: 600px;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(7, 1fr);
@@ -23,8 +23,8 @@ code {
 }
 
 .Day-Container {
-  height: 40px;
-  width: 40px;
+  height: auto;
+  width: auto;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
@@ -32,4 +32,17 @@ code {
 
 svg {
   justify-self: center;
+}
+
+.blue {
+  color: blue;
+}
+
+#users, #utensils, #book-open, #bicycle {
+  font-size: 30px;
+}
+
+h1 {
+  text-align: center;
+  width: 600px;
 }
